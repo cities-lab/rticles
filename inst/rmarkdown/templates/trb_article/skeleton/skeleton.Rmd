@@ -16,8 +16,8 @@ address:
 abstract: |
   The Transportation Research Board has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, Sweave, or other literate programming software.
 
-bibliography: TRBLaTeX.bib
-output: trbRticle::trb_article
+bibliography: trb_template.bib
+output: rticles::trb_article
 ---
 
 Introduction
