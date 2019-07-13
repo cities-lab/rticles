@@ -271,3 +271,12 @@ tf_article <- function(..., keep_tex = TRUE, citation_package = 'natbib') {
     "tf_article", keep_tex = keep_tex, citation_package = citation_package, ...
   )
 }
+
+#' @section \code{trb_article}: Format for creating submissions to Transportation Research Board annual
+#'   meeting or the Transportation Research Record journal.
+#' @export
+#' @rdname article
+trb_article <- function(..., keep_tex = TRUE) {
+  pdf_document_format("trb_article", keep_tex = keep_tex, ...)
+}
+

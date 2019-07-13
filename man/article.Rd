@@ -21,6 +21,7 @@
 \alias{sim_article}
 \alias{springer_article}
 \alias{tf_article}
+\alias{trb_article}
 \title{R Markdown output formats for (journal) articles}
 \usage{
 acm_article(...)
@@ -70,6 +71,8 @@ sim_article(..., highlight = NULL, citation_package = "natbib")
 springer_article(..., keep_tex = TRUE, citation_package = "none")
 
 tf_article(..., keep_tex = TRUE, citation_package = "natbib")
+
+trb_article(..., keep_tex = TRUE)
 }
 \arguments{
 \item{..., keep_tex, latex_engine, citation_package, highlight, fig_caption, md_extensions}{Arguments passed to \code{rmarkdown::\link{pdf_document}()}.}
@@ -231,6 +234,11 @@ Possible arguments for the YAML header are:
 \section{\code{tf_article}}{
  Format for creating submissions to a Taylor & Francis journal. Adapted from
 \url{http://www.tandf.co.uk/journals/authors/InteractCADLaTeX.zip}.
+}
+
+\section{\code{trb_article}}{
+ Format for creating submissions to Transportation Research Board annual
+  meeting or the Transportation Research Record journal.
 }
 
 \examples{
