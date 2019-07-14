@@ -1,8 +1,5 @@
-% Credits: 
-%   Repository:  https://github.com/chiehrosswang/TRB_LaTeX_tex
-%
-% Transportation Research Board conference paper template
-% version 4.0 Lite (updates made to be compatible in Overleaf and ShareLaTeX)
+% Modified from Transportation Research Board conference paper template version 4.0
+% available at https://github.com/chiehrosswang/TRB_LaTeX_tex
 %
 % When numbered option is activated, lines are numbered.
 \documentclass[numbered]{trbunofficial}
@@ -11,6 +8,10 @@
 % \usepackage[colorlinks=true,linkcolor=blue,citecolor=blue]{hyperref}
 % For TRB version hide links
 \usepackage[hidelinks]{hyperref}
+
+\TotalWords{$wordcount.words$}
+\TotalTables{$wordcount.tables$}
+\WordsPerTable{$wordcount.WordsPerTable$}
 
 % Put here what will go to headers as author
 \AuthorHeaders{$authorheader$}
@@ -28,24 +29,16 @@
 
 \begin{document}
 
-% If necessary modify the number of words per table or figure default is set to
-% 250 words per table
-% \WordsPerTable{250}
-
-% If words are counted manually, put that number here. This does not include
-% figures and tables. This can also be used to avoid problems with texcount
-% program i.e. if one does not have it installed.
-% \TotalWords{200}
-
 \maketitle
 
 \section{Abstrct}
 $abstract$
 \hfill\break
 
-$if(keywords)$ 
+$if(keywords)$
   \noindent\textit{Keywords}: $keywords$
 $endif$
+
 \newpage
 
 $body$

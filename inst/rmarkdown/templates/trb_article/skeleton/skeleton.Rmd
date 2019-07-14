@@ -1,21 +1,25 @@
 ---
-title: A RMarkdown Template for Papers Submitted to the Transportation Research Board
+title: A Rmarkdown Template for Papers Submitted to the Transportation Research Board
 author:
   - name: Alice Anonymous
     email: alice@example.com
-    affiliation: Some Institute of Technology
+    affiliation: Some Academic Institute
     address: Department, Street, City, State, Zip
     footnote: Corresponding Author
   - name: Bob Student
     email: bob@example.com
-    affiliation: Some Institute of Technology
-    address: Department, Street, City, State, Zip
+    affiliation: Some Consultancy
+    address: Street, City, State, Zip
 authorheader: Anonymous and Student
 abstract: |
   The Transportation Research Board has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, Sweave, or other literate programming software.
 keywords: keyword1, keyword2, keyword3
-bibliography: trb_template.bib
+bibliography: trb_sample.bib
 csl: transportation-research-record.csl
+wordcount:
+  words: "`r wordcountaddin::word_count('skeleton.Rmd')`"
+  tables: 2
+  WordsPerTable: 250
 output: rticles::trb_article
 ---
 
@@ -30,7 +34,7 @@ punctuation, and the references must be numbered when cited and then printed in
 order.
 
 It is assumed that the readers of this document have some significant level of
-experience in \LaTeX and \verb1bibtex1. As use of literate programming becomes more
+experience with Rmarkdown. As use of literate programming becomes more
 widespread in engineering and planning, it is possible that this template may
 need to be made more robust.
 

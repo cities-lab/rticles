@@ -1,6 +1,7 @@
-% Transportation Research Board conference paper template
-% version 4.0
+% Modified from Transportation Research Board conference paper template version 4.0
+% available at https://github.com/chiehrosswang/TRB_LaTeX_tex
 %
+% Version History:
 % David R. Pritchard, http://davidpritchard.org
 %   1.0   - Mar. 2009
 %   1.1   - Sep. 2011, fixes for captions
@@ -141,8 +142,6 @@
 
 \makeatletter
 \newread\somefile
-\newcounter{totalwordcounter}
-\newcounter{wordcounter}
 
 % default: 250 number of words per table
 \def\@WordsPerTable{250}
@@ -157,24 +156,9 @@
 	\def\@TotalWords{#1}
 }
 
-% From totcount package
-\regtotcounter{table} 	%count tables
-\regtotcounter{figure} 	%count figures
-
-\newcommand{\quickwordcount}[1]{%
-	\immediate\write18{texcount -1 -sum -merge #1.tex > #1-words}%
-	\immediate\openin\somefile=#1-words%
-	\read\somefile to \@@localdummy%
-	\immediate\closein\somefile%
-	\setcounter{wordcounter}{\@@localdummy}%
-	\@@localdummy%
-}
-
-\newcommand{\totalwordcount}{%
-	\setcounter{totalwordcounter}{\value{wordcounter}}%
-	\addtocounter{totalwordcounter}{\numexpr\@WordsPerTable*\totvalue{table}}%
-	\number\value{totalwordcounter}% Output the number
-	\renewcommand{\totalwordcount}{\number\value{totalwordcounter}}
+\def\@TotalTables{0}
+\newcommand{\TotalTables}[1]{%
+	\def\@TotalTables{#1}
 }
 
 % TODO: find better way than multiple hfill and break to get numbered empty
@@ -188,21 +172,12 @@
 		\hfill\break%
 		\hfill\break%
 		\@author\\
-		\hfill\break%
-		\hfill\break%
-		\if\@TotalWords 0
-		%Word Count: \quickwordcount{trb_template}~words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \totalwordcount~words\\
-		\else
-		Word Count: \@TotalWords\ words $+$ \total{table} table(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \totvalue{table}*\@WordsPerTable~words\\
-		\fi
-		\hfill\break%
-		\hfill\break%
-		\hfill\break%
-		\hfill\break%
-		\hfill\break%
+		\vfill\hbox{}%
+		Word Count: \@TotalWords\ words $+$ \@TotalTables\ table(s)/figure(s) $\times$ \@WordsPerTable\ $=$ \the\numexpr\@TotalWords + \@TotalTables*\@WordsPerTable~words\\
 		\hfill\break%
 		Submission Date: \today
 	\end{flushleft}
 	\newpage
 }
+
 \makeatother
