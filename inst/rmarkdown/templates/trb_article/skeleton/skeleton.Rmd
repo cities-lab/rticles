@@ -1,34 +1,45 @@
 ---
-title: Short Paper
+title: A RMarkdown Template for Papers Submitted to the Transportation Research Board
 author:
   - name: Alice Anonymous
     email: alice@example.com
     affiliation: Some Institute of Technology
+    address: Department, Street, City, State, Zip
     footnote: Corresponding Author
-  - name: Bob Security
+  - name: Bob Student
     email: bob@example.com
-    affiliation: Another University
-address:
-  - code: Some Institute of Technology
+    affiliation: Some Institute of Technology
     address: Department, Street, City, State, Zip
-  - code: Another University
-    address: Department, Street, City, State, Zip
+authorheader: Anonymous and Student
 abstract: |
   The Transportation Research Board has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, Sweave, or other literate programming software.
-
+keywords: keyword1, keyword2, keyword3
 bibliography: trb_template.bib
+csl: transportation-research-record.csl
 output: rticles::trb_article
 ---
 
 Introduction
 ============
-The \trbcite{TRBGuide} has unique and somewhat arbitrary requirements
+
+@Bierlaire2003 created Biogeme in 2003
+
+The TRB Guide [@TRBGuide] has unique and somewhat arbitrary requirements
 for papers submitted for review and publication. While the initial submission is
 required to be in PDF format, submissions for publication in Transportation
 Research Record must be in Microsoft Office format. On top of this, the
 manuscripts must be line-numbered, captions are bolded and employ atypical
 punctuation, and the references must be numbered when cited and then printed in
 order.
+
+# Section 1
+with `#`
+
+## SubSection 2
+with `##`
+
+## SubsubSection 3
+with `###`
 
 It is assumed that the readers of this document have some significant level of
 experience in \LaTeX and \verb1bibtex1. As use of literate programming becomes more
@@ -47,7 +58,7 @@ The template has a number of features that enable quick and painless manuscript
 authoring.
 
 ### Title Page
-The standard \LaTeX\ \verb1\maketitle1 command is not very versatile, so we have
+The standard \LaTeX\ \verb1 command is not very versatile, so we have
 replaced it with a \verb1titlepage1 environment. This means that the writers
 will be required to manually enter spacings based on the number of contributors,
 but the current settings (12pt between authors, 36pt before, and 60pt after them)
@@ -71,7 +82,7 @@ heading and the page number in the right. The authors heading will need to be
 edited by the writers; automating this from the title page command is not
 currently possible. Paragraphs leading sections and subsections are not
 indented, while all subsequent paragraphs in that section are. Section types are
-defined as outlined by the \trbcite{TRBGuide}
+defined as outlined by the TRB Guide [@TRBGuide].
 
 The document is single-spaced in 12 point Times font. Times New Roman is a
 proprietary font and is therefore not available by installation in open-source
@@ -122,14 +133,14 @@ Version & Date & Author & Contributions \\\hline
 Bibliography
 ============
 The TRB bibliography style is defined in the \verb1trb.bst1 file which should be
-in your document folder. A new command is specified, \verb1\trbcite{}1 which
+in your document folder. A new command is specified,  which
 will print the authors and the number of the reference in the order in which it
 is supplied. The References section will be appended to the end of the document.
 
 It is very easy to add reference to papers programs written by
-\trbcite{Bierlaire2003} and \trbcite{Bierlaire2008} or to papers like those
-written by \trbcite{Garrow2009} and \trbcite{Koppelman2005}. You can even go
-back and refer to Biog\'eme by \trbcite{Bierlaire2008} a second time.
+@Bierlaire2003 and @Bierlaire2008 or to papers like those
+written by @Garrow2009 and @Koppelman2005. You can even go
+back and refer to Biog\'eme by Bierlaire [@Bierlaire2003, @Bierlaire2008i] a second time.
 
 Formatting of references has been modified to have no extra spacing between 
 any two bibliographic entries.
@@ -141,7 +152,7 @@ There is still work to be done on this template. Currently, the word count
 feature includes text in the abstract. It would also be cleaner if cited authors
 could be separated from their works. This may be possible currently, using the
 the \verb1\citeauthor{}1 and \verb1\citenum{}1 commands that are stuck together
-into \verb1\trbcite1. 
+into . 
 
 There may well be other important features in the template that we have not
 considered. Ideally, we would make a \verb1trb.sty1 style class that could be
@@ -170,5 +181,11 @@ command in the Global Options > Sweave settings.  Moreover, if your computer doe
 not have a Perl interpreter you will need one, such as the ActivePerl, for the 
 wordcount to work properly.
 
+Acknowledgements {#acknowledgements .unnumbered}
+================
+The authors would like to thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for creating the \verb1trbunofficial1 class document, which has been a very helpful improvement.
+
 References {#references .unnumbered}
 ==========
+
+\setlength{\parindent}{0pt} <!-- To avoid identation for reference items -->
