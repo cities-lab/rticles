@@ -19,10 +19,7 @@ csl: transportation-research-record.csl
 output: rticles::trb_article
 ---
 
-Introduction
-============
-
-@Bierlaire2003 created Biogeme in 2003
+# Introduction
 
 The TRB Guide [@TRBGuide] has unique and somewhat arbitrary requirements
 for papers submitted for review and publication. While the initial submission is
@@ -32,28 +29,19 @@ manuscripts must be line-numbered, captions are bolded and employ atypical
 punctuation, and the references must be numbered when cited and then printed in
 order.
 
-# Section 1
-with `#`
-
-## SubSection 2
-with `##`
-
-## SubsubSection 3
-with `###`
-
 It is assumed that the readers of this document have some significant level of
 experience in \LaTeX and \verb1bibtex1. As use of literate programming becomes more
 widespread in engineering and planning, it is possible that this template may
 need to be made more robust.
 
-### History
+## History
 David Pritchard posted the original versions of this template in 2009 and
 updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
 Macfarlane made significant adaptations to it in March 2012, allowing for Sweave
 integration and automatic word and table counts. Ross Wang added an automatic
 total word count and made some minor formatting modifications in July 2015.
 
-### Features
+## Features
 The template has a number of features that enable quick and painless manuscript
 authoring.
 
@@ -95,9 +83,8 @@ are options to change the font style and type, but the current settings work
 well. Note that the line numbers refresh each page, and that blank lines do not
 receive a number.  Line numbers and headers are not shown on the title page.
 
+# Captions {#captions}
 
-Captions
-========
 Figure \ref{fig:trial} shows a Gumbel distribution as an example of captioning.
 As demonstrated, figure captions ought to be sentence capitalized, bolded, and
 can be somwhat longer than in other journals.
@@ -106,7 +93,7 @@ Table captions are somewhat different, requiring initial capitals and are more o
 title. An example of this is given in Table \ref{tab:versions}, showing the
 history of this template.
 
-\begin{figure}[t]
+\begin{figure}[ht]
   \centering
 \includegraphics{trb_template-gumbel}
 \caption{This is a random figure to test the counting functionality on the
@@ -116,7 +103,7 @@ and independently following this pattern.}
 	\label{fig:trial}
 \end{figure}
 
-\begin{table}[t]
+\begin{table}[ht]
   \caption{A History of this Template}
 	\label{tab:versions}
 \begin{center}
@@ -130,8 +117,8 @@ Version & Date & Author & Contributions \\\hline
 \end{center}
 \end{table}
 
-Bibliography
-============
+# Bibliography
+
 The TRB bibliography style is defined in the \verb1trb.bst1 file which should be
 in your document folder. A new command is specified,  which
 will print the authors and the number of the reference in the order in which it
@@ -146,8 +133,8 @@ Formatting of references has been modified to have no extra spacing between
 any two bibliographic entries.
 
 
-To Do's
-=======
+# To Do's
+
 There is still work to be done on this template. Currently, the word count
 feature includes text in the abstract. It would also be cleaner if cited authors
 could be separated from their works. This may be possible currently, using the
@@ -159,8 +146,8 @@ considered. Ideally, we would make a \verb1trb.sty1 style class that could be
 called and we would not have to expose the user to so much \TeX-ese. This could
 be forthcoming, but not for this TRB cycle. 
 
-Conclusion
-==========
+# Conclusion
+
 To make this document from source in a Unix-like OS, issue the following
 commands:
 \begin{verbatim}
@@ -181,11 +168,10 @@ command in the Global Options > Sweave settings.  Moreover, if your computer doe
 not have a Perl interpreter you will need one, such as the ActivePerl, for the 
 wordcount to work properly.
 
-Acknowledgements {#acknowledgements .unnumbered}
-================
+# Acknowledgements
+
 The authors would like to thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for creating the \verb1trbunofficial1 class document, which has been a very helpful improvement.
 
-References {#references .unnumbered}
-==========
+# References
 
 \setlength{\parindent}{0pt} <!-- To avoid identation for reference items -->
