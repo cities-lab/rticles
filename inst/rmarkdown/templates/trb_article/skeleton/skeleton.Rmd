@@ -12,15 +12,17 @@ author:
     address: Street, City, State, Zip
 authorheader: Anonymous and Student
 abstract: |
-  The Transportation Research Board has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly, and no existing \LaTeX\ style comes close to fooling the guidelines. This represents an initial effort at creating a template to meet the requirements of TRB authors using \LaTeX, Sweave, or other literate programming software.
+  The Transportation Research Board has unique and seemingly arbitrary requirements for manuscripts submitted for review. These requirements make it difficult to write the manuscripts quickly. Based on a TRB \LaTeX\ template and the `rticles` package, we develop a R Markdown template that meets the requirements of TRB guidelines.
 keywords: keyword1, keyword2, keyword3
 bibliography: trb_sample.bib
 csl: transportation-research-record.csl
 wordcount:
-  words: "`r wordcountaddin::word_count('skeleton.Rmd')`"
+  words: "`r wordcountaddin::word_count(rprojroot::thisfile())`"
   tables: 2
   WordsPerTable: 250
-output: rticles::trb_article
+output:
+  bookdown::pdf_book:
+    base_format: rticles::trb_article
 ---
 
 # Introduction
@@ -34,52 +36,76 @@ punctuation, and the references must be numbered when cited and then printed in
 order.
 
 It is assumed that the readers of this document have some significant level of
-experience with Rmarkdown. As use of literate programming becomes more
-widespread in engineering and planning, it is possible that this template may
-need to be made more robust.
+experience working with R and R Markdown. R Markdown [@xie2018] is a file format for 
+making dynamic documents with R. Frank and Hartgerink [@frank2017] demonstrate 
+some of the benefits of using R Markdown to write scientific papers.
 
+# Usage of the TRB RMarkdown Template {#sec:setup}
+## Installation
+The prerequisites for using the template are:
+
+1. [R](https://cran.r-project.org/), tested on version 3.6.1
+1. [RStudio](https://www.rstudio.com/products/rstudio/#Desktop) (recommended)
+1. R packages: 
+   - [bookdown](https://github.com/rstudio/rmarkdown) and [rmarkdown](https://github.com/rstudio/rmarkdown), for rendering R Markdown files
+   - [rprojroot](https://github.com/r-lib/rprojroot), for word count function in the template
+   - [wordcountaddin](https://github.com/benmarwick/wordcountaddin), for word count function in the template
+   - [rticles](https://github.com/cities-lab/rticles), containing the TRB template
+   - [citr](https://github.com/crsh/citr) (recommended), RStudio addin for inserting citations
+
+First install R and RStudio for your operating system, and then install these R packages and their dependencies within R or RStudio. Note that you'll need to install `wordcountaddin` and `rticles` from github:
+```
+   remotes::install_github("benmarwick/wordcountaddin")
+   remotes::install_github("cities-lab/rticles")
+```
+
+## Usage
+You can follow these steps to use the TRB template from RStudio (Select the "TRB Journal Article" template): https://github.com/rstudio/rticles#using-rticles-from-rstudio
+
+Or use it outside of RStudio (change command to `template = "trb_article"`):
+https://github.com/rstudio/rticles#using-rticles-outside-of-rstudio
+
+# About the Template
 ## History
-David Pritchard posted the original versions of this template in 2009 and
+David Pritchard posted the original versions of the Latex template [@pritchard2019], 
+on which this R Markdown template is based, in 2009 and
 updated it in 2011, soon after TRB began allowing PDF submissions. Gregory
 Macfarlane made significant adaptations to it in March 2012, allowing for Sweave
 integration and automatic word and table counts. Ross Wang added an automatic
-total word count and made some minor formatting modifications in July 2015.
+total word count and made some minor formatting modifications in July 2015. 
+Emaasit [@emaasit2016] started an R Markdown template `trbRticle`, but it was incomplete
+and the repository has been dormant for 3 years. Liming Wang created the R Markdown 
+template inspired by and building on the previous work.
 
 ## Features
-The template has a number of features that enable quick and painless manuscript
+In addition to the powerful R Markdown functions of integrating text and code, the template 
+has a number of features that enable quick and painless manuscript
 authoring.
 
 ### Title Page
-The standard \LaTeX\ \verb1 command is not very versatile, so we have
-replaced it with a \verb1titlepage1 environment. This means that the writers
-will be required to manually enter spacings based on the number of contributors,
-but the current settings (12pt between authors, 36pt before, and 60pt after them)
-seems to work well. 
+The TRB Latex template [@pritchard2019] created a custom `\maketitle` environment that
+complies with the TRB guideline.
 
 Near the bottom of the title page, TRB requires a count of the manuscript's
-words, figures, and tables. This template creates these counts automatically.
-The figure and table counts are simply pulled from the \LaTeX\ counters using the
-\verb1totcount1 package. The word count feature is not as simple, as it
-utilizes a call to the system command \verb1texcount1. Thus to compile the
-document writers must enable \verb#\write18# in their \verb1pdflatex1 call.
-
-In the newest version of this template, we added the total count automatically. 
-The total count basically adds not only the word count, but also the equivalent
-count (250 words) for each figure and table.  This is implemented using a cusomized
-% command \totalwordcount.  Please see the original code for more information.
+words, figures, and tables. This template creates the word counts automatically using
+the `wordcountaddin` [@marwick2019] and `rprojroot` [muller2019] R package. 
+Users need to input the figure and table counts in the YAML header, as there are many different ways to include figures and tables in R Markdown (e.g., using Latex, embedding R chucks, HTML etc) and counting them is difficult to automate, while not too hard to do manually. The word counts ignore the References,
+YAML, code chunks and inline code, etc. See the README of the `wordcountaddin` [@marwick2019] if you need
+to know what are included and ignored.
 
 ### Page Layout
-The document has 1 inch margins as required, with the author's names in the left
+The document has 1 inch margins as required, with the author's last names in the left
 heading and the page number in the right. The authors heading will need to be
-edited by the writers; automating this from the title page command is not
-currently possible. Paragraphs leading sections and subsections are not
+edited by the writers with the `authorheader` option in the YAML head of the R Markdown file. 
+Paragraphs leading sections and subsections are not
 indented, while all subsequent paragraphs in that section are. Section types are
 defined as outlined by the TRB Guide [@TRBGuide].
 
 The document is single-spaced in 12 point Times font. Times New Roman is a
 proprietary font and is therefore not available by installation in open-source
-software. While the differences between Times variants are negligible, Times New
-Roman itself can be used in Mac OSX by compiling under \verb1xelatex1.
+software, while the differences between Times variants are negligible. Times New
+Roman itself can be used in Mac OSX by compiling the generated latex file 
+under \verb1xelatex1.
 
 ### Line Numbers
 Manuscript line numbering is implemented using the \verb1lineno1 package. There
@@ -87,95 +113,75 @@ are options to change the font style and type, but the current settings work
 well. Note that the line numbers refresh each page, and that blank lines do not
 receive a number.  Line numbers and headers are not shown on the title page.
 
-# Captions {#captions}
+### Figure and Table Captions {#captions}
 
-Figure \ref{fig:trial} shows a Gumbel distribution as an example of captioning.
-As demonstrated, figure captions ought to be sentence capitalized, bolded, and
-can be somwhat longer than in other journals.
+Figure captions in a TRB manuscript ought to be sentence capitalized, bolded, and
+can be somewhat longer than in other journals, as demonstrated in Figure \ref{fig:dnorm},
+showing a Normal distribution as an example of captioning.
 
-Table captions are somewhat different, requiring initial capitals and are more of a
-title. An example of this is given in Table \ref{tab:versions}, showing the
-history of this template.
+```{r dnorm, fig.cap="This is a random figure to test the counting functionality on the title page. It shows a Normal distribution with location 0 and scale 1. The multinomial probit model assumes that the error terms are distributed identically and independently following this pattern.", echo = FALSE, warning = FALSE}
 
-\begin{figure}[ht]
-  \centering
-\includegraphics{trb_template-gumbel}
-\caption{This is a random figure to test the counting functionality on the
-title page. It shows a Gumbel distribution with mode 0 and scale 1. The
-multinomial logit model assumes that the error terms are distributed identically
-and independently following this pattern.}
-	\label{fig:trial}
-\end{figure}
+library(ggplot2)
 
-\begin{table}[ht]
-  \caption{A History of this Template}
-	\label{tab:versions}
-\begin{center}
-	\begin{tabular}{l l l l}
-Version & Date & Author & Contributions \\\hline
-1.0 & Sep 2009 & Pritchard & Initial work \\
-1.1 & Mar 2011 & Pritchard & Captions \\
-2.0 & Mar 2012 & Macfarlane& Automation, documentation\\
-2.1 & Jul 2015 & Wang      & More automation and formatting\\\hline
-\end{tabular}
-\end{center}
+p1 <- ggplot(data = data.frame(x = c(-3, 3)), aes(x)) +
+  stat_function(fun = dnorm, n = 101, args = list(mean = 0, sd = 1)) + ylab("") +
+  scale_y_continuous(breaks = NULL)
+p1
+```
+
+Table captions are somewhat different, requiring initial capitals and are more of a title. An example of this is given in Table \ref{tab:versions}, showing the history of the TRB Latex template. Tables generated from R code chunks can be included too.
+
+\begin{table}[!ht]
+	\caption{A History of the TRB Latex Template}\label{tab:versions}
+	\begin{center}
+		\begin{tabular}{l l l l}
+			Version & Date & Author & Contributions \\\hline
+			1.0   & Sep 2009 & Pritchard & Initial work \\
+			1.1   & Mar 2011 & Pritchard & Captions \\
+			2.0   & Mar 2012 & Macfarlane& Automation, documentation\\
+			2.1   & Jul 2015 & Wang      & More automation and formatting\\
+			2.1.1 & Jan 2016 & Wang      & Minor modifications and uploaded to Github\\
+			2.1.1 Lite & Jun 2017 & Wang & \TeX-only template \\
+			3.1   & Jun 2017 & Wang      & Addition of \verb1trbunofficial.cls1\\
+			3.1 Lite & Jun 2017 & Wang   & Addition of \verb1trbunofficial.cls1\\
+			4.0 Lite & Jul 2019 & Wang   & Word count updates for Overleaf/ShareLaTeX compatibility\\\hline
+		\end{tabular}
+	\end{center}
 \end{table}
 
-# Bibliography
+### Bibliography
 
-The TRB bibliography style is defined in the \verb1trb.bst1 file which should be
-in your document folder. A new command is specified,  which
-will print the authors and the number of the reference in the order in which it
-is supplied. The References section will be appended to the end of the document.
+This template uses the Transportation Research Record citation style file (http://www.zotero.org/styles/transportation-research-record) created by John Coburn 
+for bibliography style. Users can use the Markdown syntax for citations (see https://bookdown.org/yihui/bookdown/citations.html). 
 
-It is very easy to add reference to papers programs written by
-@Bierlaire2003 and @Bierlaire2008 or to papers like those
-written by @Garrow2009 and @Koppelman2005. You can even go
-back and refer to Biog\'eme by Bierlaire [@Bierlaire2003, @Bierlaire2008i] a second time.
+As an example, it is very easy to add reference to Biogeme written by
+Bierlaire [@Bierlaire2008;@Bierlaire2003] or to papers like those
+written by Garrow et al [@Garrow2009] and Koppelman and Garrow [@Koppelman2005]. You can even go
+back and refer to Biogeme [@Bierlaire2008;@Bierlaire2003] a second time.
 
-Formatting of references has been modified to have no extra spacing between 
-any two bibliographic entries.
-
+The `citr` package facilitates inserting citations when using RStudio to write the R Markdown document [@aust2019].
 
 # To Do's
+A list of To Do's for the template
 
-There is still work to be done on this template. Currently, the word count
-feature includes text in the abstract. It would also be cleaner if cited authors
-could be separated from their works. This may be possible currently, using the
-the \verb1\citeauthor{}1 and \verb1\citenum{}1 commands that are stuck together
-into . 
+1. Switch to use [trb.bst](https://raw.githubusercontent.com/chiehrosswang/TRB_LaTeX_tex/master/trb.bst) for bibliography style (?)
 
-There may well be other important features in the template that we have not
-considered. Ideally, we would make a \verb1trb.sty1 style class that could be
-called and we would not have to expose the user to so much \TeX-ese. This could
-be forthcoming, but not for this TRB cycle. 
+1. Add more examples of embedding R code chunks
+
+1. Eliminate dependency on `bookdown` when cross-referencing figures and tables can work without `bookdown`
 
 # Conclusion
 
-To make this document from source in a Unix-like OS, issue the following
-commands:
-\begin{verbatim}
-R CMD SWEAVE 'document.rnw'
-pdflatex --shell-escape document.tex
-bibtex document
-pdflatex --shell-escape document.tex
-pdflatex --shell-escape document.tex
-\end{verbatim}
-The \verb1--shell-escape1 option is required to access the command line for the
-word count. Normally this feature is disabled because it is a route of entry for
-malicious software. Mr.\ Macfarlane promises that there is no such debilitating
-code in this document, and he encourages you to examine any scripts for
-suspicious code before permitting \verb1pdflatex1 from accessing your system.
+To make this document from the R Markdown source, click the `Knit` button in RStudio or 
+run `rmarkdown::render("path/to/file_name.Rmd")` in your R console after successfully
+setting up the prerequisites and the template (Section~\ref{sec:setup}).
 
-For R-Studio users using Sweave and .Rnw files, you may enable shell escape 
-command in the Global Options > Sweave settings.  Moreover, if your computer does 
-not have a Perl interpreter you will need one, such as the ActivePerl, for the 
-wordcount to work properly.
+The R Markdown template lives at https://github.com/cities-lab/rticles, report any issues and feature requests at the [Issues page](https://github.com/cities-lab/rticles) there.
 
 # Acknowledgements
 
-The authors would like to thank Aleksandar Trifunovic (\url{https://github.com/akstrfn}) for creating the \verb1trbunofficial1 class document, which has been a very helpful improvement.
+The authors would like to thank Pritchard, Macfarlane and Wang for their work of the TRB Latex template, without which this R Markdown template would not be possible.
 
 # References
 
-\setlength{\parindent}{0pt} <!-- To avoid identation for reference items -->
+\setlength{\parindent}{0pt} <!-- To avoid indentation for reference items -->

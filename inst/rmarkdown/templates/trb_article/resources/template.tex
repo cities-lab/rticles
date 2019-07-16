@@ -9,6 +9,10 @@
 % For TRB version hide links
 \usepackage[hidelinks]{hyperref}
 
+% needed when pandoc renders some R Markdown list into \tightlist
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
 \TotalWords{$wordcount.words$}
 \TotalTables{$wordcount.tables$}
 \WordsPerTable{$wordcount.WordsPerTable$}
@@ -29,7 +33,10 @@
 
 \begin{document}
 
+\nolinenumbers
 \maketitle
+
+\linenumbers
 
 \section{Abstrct}
 $abstract$
