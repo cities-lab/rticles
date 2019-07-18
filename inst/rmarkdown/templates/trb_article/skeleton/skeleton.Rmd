@@ -1,11 +1,12 @@
 ---
 title: A Rmarkdown Template for Papers Submitted to the Transportation Research Board
 author:
-  - name: Alice Anonymous
+  - name: Alice Anonymous, Ph.D. (Corresponding Author)
     email: alice@example.com
     affiliation: Some Academic Institute
-    address: Department, Street, City, State, Zip
-    footnote: Corresponding Author
+    address: Department
+    address2: Street
+    address3: City, State, Zip
   - name: Bob Student
     email: bob@example.com
     affiliation: Some Consultancy

@@ -25,7 +25,7 @@
   $for(author)$
     \textbf{$author.name$} \\
     {$author.affiliation$} \\
-    {$author.address$} \\
+    {$author.address$} \\ $if(author.address2)$ {$author.address2$} \\ $endif$ $if(author.address3)$ {$author.address3$} \\ $endif$
     {$author.email$} \\
     \hfill\break% this is a way to add line numbering on empty line
   $endfor$
