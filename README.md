@@ -1,18 +1,11 @@
-[![Travis-CI Build Status](https://travis-ci.org/rstudio/rticles.svg?branch=master)](https://travis-ci.org/rstudio/rticles)
-[![Downloads from the RStudio CRAN mirror](https://cranlogs.r-pkg.org/badges/rticles)](https://cran.r-project.org/package=rticles)
+[![Travis-CI Build Status](https://travis-ci.org/cities-lab/rticles.svg?branch=master)](https://travis-ci.org/cities-lab/rticles)
 
 ## Installation
 
-You can install and use **rticles** from CRAN as follows:
+You can install and use **rticles** with the TRB template as follows:
 
 ```r
-install.packages("rticles")
-```
-
-If you wish to install the development version from GitHub (which often contains new article formats), you can do this:
-
-```r
-remotes::install_github("rstudio/rticles")
+remotes::install_github("cities-lab/rticles")
 ```
 
 ## Overview
@@ -65,6 +58,8 @@ The **rticles** package provides a suite of custom [R Markdown](http://rmarkdown
 
 - [Taylor & Francis](http://www.tandf.co.uk/) articles
 
+- [TRB](http://www.trb.org/GetInvolvedwithTRB/GetInvolvedSubmitaPaper.aspx) articles
+
 Under the hood, LaTeX templates are used to ensure that documents conform precisely to submission standards. At the same time, composition and formatting can be done using lightweight [markdown](https://rmarkdown.rstudio.com/authoring_basics.html) syntax, and R code and its output can be seamlessly included using [knitr](https://yihui.name/knitr/).
 
 Using **rticles** requires the prerequisites described below. You can get most of these automatically by installing the latest release of RStudio (instructions for using **rticles** without RStudio are also provided).
@@ -90,6 +85,5 @@ To use **rticles** from RStudio:
 3. Use the `rmarkdown::draft()` function to create articles:
 
     ```r
-    rmarkdown::draft("MyJSSArticle.Rmd", template = "jss_article", package = "rticles")
-    rmarkdown::draft("MyRJournalArticle", template = "rjournal_article", package = "rticles")
+    rmarkdown::draft("MyTRBArticle.Rmd", template = "trb_article", package = "rticles")
     ```
